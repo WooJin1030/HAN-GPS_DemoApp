@@ -23,7 +23,7 @@ const LoginScreen = (props) => {
   return (
     <View style={styles.container}>
       <View style={styles.titleArea}>
-        <Text style={styles.title}>Simple App</Text>
+        <Text style={styles.title}>GPS APP</Text>
       </View>
       <View style={styles.formArea}>
         <TextInput style={styles.textForm} placeholder={"ID"} />
@@ -32,6 +32,9 @@ const LoginScreen = (props) => {
       <View style={styles.buttonArea}>
         <TouchableOpacity style={styles.button} onPress={_doLogin.bind(this)}>
           <Text style={styles.buttonTitle}>Login</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.button} onPress={_doLogin.bind(this)}>
+          <Text style={styles.buttonTitle}>Join</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -45,6 +48,7 @@ const styles = StyleSheet.create({
     paddingLeft: wp("10%"),
     paddingRight: wp("10%"),
     justifyContent: "center",
+    paddingBottom: 100,
   },
   titleArea: {
     width: "100%",
@@ -77,6 +81,7 @@ const styles = StyleSheet.create({
     height: "100%",
     justifyContent: "center",
     alignItems: "center",
+    marginBottom: 7,
   },
   buttonTitle: {
     color: "white",

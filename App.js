@@ -46,9 +46,9 @@ const TabNavigator = createBottomTabNavigator(
         let icon = "▲";
 
         if (routeName === "Home") {
-          icon = "🌈";
+          icon = "🧭";
         } else if (routeName === "Profile") {
-          icon = "🌙";
+          icon = "🧑";
         }
 
         // can use react-native-vector-icons
