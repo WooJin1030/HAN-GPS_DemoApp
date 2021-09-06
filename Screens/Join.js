@@ -6,6 +6,7 @@ import {
   TextInput,
   TouchableOpacity,
   StyleSheet,
+  Alert,
 } from "react-native";
 
 import {
@@ -13,15 +14,22 @@ import {
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
 
-const LoginScreen = (props) => {
+const JoinScreen = (props) => {
   function _doLogin() {
     // do something
     props.navigation.replace("TabNavigator");
   }
 
-  function _doJoin() {
-    // do something
-    props.navigation.replace("JoinScreen");
+  function _checkJoin() {
+    Alert.alert(
+      "Welcome!",
+      "Hello",
+      [
+        { text: "ok", onPress: _doLogin.bind(this) },
+        { text: "cancel", onPress: () => null },
+      ],
+      { cancelable: true }
+    );
   }
 
   return (
@@ -32,12 +40,10 @@ const LoginScreen = (props) => {
       <View style={styles.formArea}>
         <TextInput style={styles.textForm} placeholder={"ID"} />
         <TextInput style={styles.textForm} placeholder={"Password"} />
+        <TextInput style={styles.textForm} placeholder={"Check Password"} />
       </View>
       <View style={styles.buttonArea}>
-        <TouchableOpacity style={styles.button} onPress={_doLogin.bind(this)}>
-          <Text style={styles.buttonTitle}>Login</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.button} onPress={_doJoin.bind(this)}>
+        <TouchableOpacity style={styles.button} onPress={_checkJoin.bind(this)}>
           <Text style={styles.buttonTitle}>Join</Text>
         </TouchableOpacity>
       </View>
@@ -92,4 +98,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default LoginScreen;
+export default JoinScreen;

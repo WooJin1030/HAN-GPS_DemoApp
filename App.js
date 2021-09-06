@@ -7,6 +7,7 @@ import { createBottomTabNavigator } from "react-navigation-tabs";
 import LoginScreen from "./Screens/Login";
 import HomeScreen from "./Screens/Home";
 import ProfileScreen from "./Screens/Profile";
+import JoinScreen from "./Screens/Join";
 
 const HomeStack = createStackNavigator(
   {
@@ -70,6 +71,7 @@ const TabNavigator = createBottomTabNavigator(
 
 const AppStack = createStackNavigator({
   LoginScreen: LoginScreen,
+  JoinScreen: JoinScreen,
   TabNavigator: {
     screen: TabNavigator,
     navigationOptions: ({ navigation }) => ({

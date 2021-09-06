@@ -36,12 +36,6 @@ const ProfileScreen = (props) => {
     <View style={styles.container}>
       <TouchableOpacity
         style={styles.wrapButton}
-        onPress={_navigate.bind(this)}
-      >
-        <Text>🏅 Something</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        style={styles.wrapButton}
         onPress={_checkLogout.bind(this)}
       >
         <Text>🔓 Logout</Text>
