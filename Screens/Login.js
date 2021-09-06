@@ -31,7 +31,11 @@ const LoginScreen = (props) => {
       </View>
       <View style={styles.formArea}>
         <TextInput style={styles.textForm} placeholder={"ID"} />
-        <TextInput style={styles.textForm} placeholder={"Password"} />
+        <TextInput
+          secureTextEntry={true}
+          style={styles.textForm}
+          placeholder={"Password"}
+        />
       </View>
       <View style={styles.buttonArea}>
         <TouchableOpacity style={styles.button} onPress={_doLogin.bind(this)}>

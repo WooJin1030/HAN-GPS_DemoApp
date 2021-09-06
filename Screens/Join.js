@@ -1,5 +1,4 @@
-import React, { Component } from "react";
-
+import React, { Component, useState } from "react";
 import {
   View,
   Text,
@@ -13,14 +12,42 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
+import { postMember, getUserInfo } from "../api";
 
 const JoinScreen = (props) => {
+  const [idInput, setIdInput] = useState("");
+  const [pwdInput, setPwdInput] = useState("");
+  const [checkPwdInput, setCheckPwdInput] = useState("");
+
   function _doLogin() {
-    // do something
     props.navigation.replace("TabNavigator");
   }
 
   function _checkJoin() {
+    if (pwdInput === checkPwdInput) {
+      //Check for the ID TextInput
+      if (!idInput.trim()) {
+        alert("Please Enter Your ID");
+        return;
+      }
+      //Check for the Password TextInput
+      if (!pwdInput.trim()) {
+        alert("Please Enter Your password");
+        return;
+      }
+
+      //Check for the Password TextInput
+      if (!pwdInput.trim()) {
+        alert("Please Enter Your password one more time");
+        return;
+      }
+
+      postMember(idInput, pwdInput);
+      alert("Success");
+    }
+
+    // getUserInfo(4);
+
     Alert.alert(
       "Welcome!",
       "Hello",
@@ -38,9 +65,26 @@ const JoinScreen = (props) => {
         <Text style={styles.title}>GPS APP</Text>
       </View>
       <View style={styles.formArea}>
-        <TextInput style={styles.textForm} placeholder={"ID"} />
-        <TextInput style={styles.textForm} placeholder={"Password"} />
-        <TextInput style={styles.textForm} placeholder={"Check Password"} />
+        <TextInput
+          style={styles.textForm}
+          placeholder={"ID"}
+          onChangeText={(text) => setIdInput(text)}
+          value={idInput}
+        />
+        <TextInput
+          secureTextEntry={true}
+          style={styles.textForm}
+          placeholder={"Password"}
+          onChangeText={(text) => setPwdInput(text)}
+          value={pwdInput}
+        />
+        <TextInput
+          secureTextEntry={true}
+          style={styles.textForm}
+          placeholder={"Check Password"}
+          onChangeText={(text) => setCheckPwdInput(text)}
+          value={checkPwdInput}
+        />
       </View>
       <View style={styles.buttonArea}>
         <TouchableOpacity style={styles.button} onPress={_checkJoin.bind(this)}>
