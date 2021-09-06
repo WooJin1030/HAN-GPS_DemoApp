@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-
+import React, { Component, useEffect, useState } from "react";
+import axios from "axios";
 import {
   View,
   Text,
@@ -7,20 +7,49 @@ import {
   TouchableOpacity,
   StyleSheet,
 } from "react-native";
-
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
 
 const LoginScreen = (props) => {
+  const [idInput, setIdInput] = useState("");
+  const [pwdInput, setPwdInput] = useState("");
+
+  const [userInfo, setUserInfo] = useState([]);
+  const BaseURL = "https://www.gpsdemo.shop/";
+
+  const Login = async (id, passwd) => {
+    await axios
+      .post(`${BaseURL}users/login`, {
+        id,
+        passwd,
+      })
+      .then((response) => setUserInfo(response.data))
+      .catch((err) => console.log(err));
+  };
+
   function _doLogin() {
-    // do something
-    props.navigation.replace("TabNavigator");
+    if (!idInput.trim()) {
+      alert("Please Enter Your ID");
+      return;
+    }
+    if (!pwdInput.trim()) {
+      alert("Please Enter Your password");
+      return;
+    }
+
+    Login(idInput, pwdInput);
+    // console.log(userInfo);"j0c+dvM2UqBBhOldsHU1sQ=="
+    if (userInfo.isSuccess) {
+      props.navigation.replace("TabNavigator");
+    } else {
+      alert("Not a member!");
+    }
+    // "j0c+dvM2UqBBhOldsHU1sQ=="
   }
 
   function _doJoin() {
-    // do something
     props.navigation.replace("JoinScreen");
   }
 
@@ -30,11 +59,16 @@ const LoginScreen = (props) => {
         <Text style={styles.title}>GPS APP</Text>
       </View>
       <View style={styles.formArea}>
-        <TextInput style={styles.textForm} placeholder={"ID"} />
+        <TextInput
+          style={styles.textForm}
+          placeholder={"ID"}
+          onChangeText={(text) => setIdInput(text)}
+        />
         <TextInput
           secureTextEntry={true}
           style={styles.textForm}
           placeholder={"Password"}
+          onChangeText={(text) => setPwdInput(text)}
         />
       </View>
       <View style={styles.buttonArea}>

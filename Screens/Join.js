@@ -7,7 +7,6 @@ import {
   StyleSheet,
   Alert,
 } from "react-native";
-
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
@@ -24,20 +23,17 @@ const JoinScreen = (props) => {
   }
 
   function _checkJoin() {
+    getUserInfo(4);
     if (pwdInput === checkPwdInput) {
-      //Check for the ID TextInput
       if (!idInput.trim()) {
         alert("Please Enter Your ID");
         return;
       }
-      //Check for the Password TextInput
       if (!pwdInput.trim()) {
         alert("Please Enter Your password");
         return;
       }
-
-      //Check for the Password TextInput
-      if (!pwdInput.trim()) {
+      if (!checkPwdInput.trim()) {
         alert("Please Enter Your password one more time");
         return;
       }
@@ -45,8 +41,6 @@ const JoinScreen = (props) => {
       postMember(idInput, pwdInput);
       alert("Success");
     }
-
-    // getUserInfo(4);
 
     Alert.alert(
       "Welcome!",
