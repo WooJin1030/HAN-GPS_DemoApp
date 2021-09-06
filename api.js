@@ -32,3 +32,12 @@ export const getUserInfo = async (idx) => {
     .then((response) => console.log(response.data))
     .catch((err) => console.log(err));
 };
+
+export const Logout = async (idx) => {
+  await axios
+    .post(`${BaseURL}logout`, {
+      userIdx: idx,
+    })
+    .then((response) => console.log(response.data))
+    .catch((err) => console.log(err));
+};

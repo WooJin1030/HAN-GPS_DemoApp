@@ -23,21 +23,21 @@ const JoinScreen = (props) => {
   }
 
   function _checkJoin() {
-    getUserInfo(4);
-    if (pwdInput === checkPwdInput) {
-      if (!idInput.trim()) {
-        alert("Please Enter Your ID");
-        return;
-      }
-      if (!pwdInput.trim()) {
-        alert("Please Enter Your password");
-        return;
-      }
-      if (!checkPwdInput.trim()) {
-        alert("Please Enter Your password one more time");
-        return;
-      }
+    // getUserInfo(5);
+    if (!idInput.trim()) {
+      alert("Please Enter Your ID");
+      return;
+    }
+    if (!pwdInput.trim()) {
+      alert("Please Enter Your password");
+      return;
+    }
+    if (!checkPwdInput.trim()) {
+      alert("Please Enter Your password one more time");
+      return;
+    }
 
+    if (pwdInput === checkPwdInput) {
       postMember(idInput, pwdInput);
       alert("Success");
     }

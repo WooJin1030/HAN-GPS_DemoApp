@@ -8,7 +8,7 @@ import {
 
 const ProfileScreen = (props) => {
   function _navigate() {
-    props.navigation.navigate("ProfileScreenScreen");
+    props.navigation.navigate("ProfileScreen");
   }
 
   function _checkLogout() {

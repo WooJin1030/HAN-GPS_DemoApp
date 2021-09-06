@@ -16,7 +16,9 @@ const LoginScreen = (props) => {
   const [idInput, setIdInput] = useState("");
   const [pwdInput, setPwdInput] = useState("");
 
-  const [userInfo, setUserInfo] = useState([]);
+  const [userInfo, setUserInfo] = useState({
+    isPossible: false,
+  });
   const BaseURL = "https://www.gpsdemo.shop/";
 
   const Login = async (id, passwd) => {
@@ -25,11 +27,25 @@ const LoginScreen = (props) => {
         id,
         passwd,
       })
-      .then((response) => setUserInfo(response.data))
+      .then((response) => {
+        const userLoginPossible = response.data.isSuccess;
+        console.log(userLoginPossible);
+        setUserInfo({
+          isPossible: userLoginPossible,
+        });
+      })
       .catch((err) => console.log(err));
   };
 
-  function _doLogin() {
+  const moveProfile = () => {
+    if (userInfo.isPossible) {
+      props.navigation.replace("TabNavigator");
+    } else {
+      alert("Not a member!");
+    }
+  };
+
+  const _doLogin = () => {
     if (!idInput.trim()) {
       alert("Please Enter Your ID");
       return;
@@ -39,19 +55,18 @@ const LoginScreen = (props) => {
       return;
     }
 
-    Login(idInput, pwdInput);
-    // console.log(userInfo);"j0c+dvM2UqBBhOldsHU1sQ=="
-    if (userInfo.isSuccess) {
-      props.navigation.replace("TabNavigator");
-    } else {
-      alert("Not a member!");
-    }
-    // "j0c+dvM2UqBBhOldsHU1sQ=="
-  }
+    // Login(idInput, pwdInput)
+    console.log(userInfo);
+    moveProfile();
+  };
 
   function _doJoin() {
     props.navigation.replace("JoinScreen");
   }
+
+  useEffect(() => {
+    if (idInput && pwdInput) Login(idInput, pwdInput);
+  }, [pwdInput, idInput]);
 
   return (
     <View style={styles.container}>
