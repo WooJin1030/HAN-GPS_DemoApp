@@ -18,10 +18,12 @@ const JoinScreen = (props) => {
   const [pwdInput, setPwdInput] = useState("");
   const [checkPwdInput, setCheckPwdInput] = useState("");
 
+  // 회원 가입 성공시 자동 로그인
   function _doLogin() {
-    props.navigation.replace("TabNavigator");
+    props.navigation.replace("LoginScreen");
   }
 
+  // 회원 가입 알림
   function _checkJoin() {
     // getUserInfo(5);
     if (!idInput.trim()) {

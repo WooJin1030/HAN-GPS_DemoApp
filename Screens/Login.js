@@ -6,21 +6,26 @@ import {
   TextInput,
   TouchableOpacity,
   StyleSheet,
+  AsyncStorage,
 } from "react-native";
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
+import { _onValueChange, _getFromStorage } from "../Storage";
 
 const LoginScreen = (props) => {
+  const BaseURL = "https://www.gpsdemo.shop/";
+  const STORAGE_KEY = "id_token";
+
   const [idInput, setIdInput] = useState("");
   const [pwdInput, setPwdInput] = useState("");
-
   const [userInfo, setUserInfo] = useState({
     isPossible: false,
   });
-  const BaseURL = "https://www.gpsdemo.shop/";
 
+  // login api
+  // 로그인 가능한지 여부 / Storage에 저장
   const Login = async (id, passwd) => {
     await axios
       .post(`${BaseURL}users/login`, {
@@ -29,14 +34,19 @@ const LoginScreen = (props) => {
       })
       .then((response) => {
         const userLoginPossible = response.data.isSuccess;
-        console.log(userLoginPossible);
+        const userToken = response.data.result.jwt;
+
         setUserInfo({
           isPossible: userLoginPossible,
         });
+
+        _onValueChange(STORAGE_KEY, userToken);
+        // _getFromStorage();
       })
       .catch((err) => console.log(err));
   };
 
+  // 로그인 성공시 탭 이동
   const moveProfile = () => {
     if (userInfo.isPossible) {
       props.navigation.replace("TabNavigator");
@@ -45,6 +55,7 @@ const LoginScreen = (props) => {
     }
   };
 
+  // 로그인
   const _doLogin = () => {
     if (!idInput.trim()) {
       alert("Please Enter Your ID");
@@ -60,6 +71,7 @@ const LoginScreen = (props) => {
     moveProfile();
   };
 
+  // 회원가입 화면으로 전환
   function _doJoin() {
     props.navigation.replace("JoinScreen");
   }

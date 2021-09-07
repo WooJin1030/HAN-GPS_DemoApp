@@ -59,6 +59,7 @@ export default function App() {
   });
   const [on, setOn] = useState(false);
 
+  // 위치 정보
   const getLocation = async () => {
     await Location.requestForegroundPermissionsAsync();
 
