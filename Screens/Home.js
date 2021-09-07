@@ -114,7 +114,7 @@ export default function App() {
                 alignItems: "center",
                 alignSelf: "center",
                 backgroundColor: "black",
-                borderRadius: "32px",
+                borderRadius: 32,
               }}
               onPress={() => setOn(false)}
             >
@@ -130,7 +130,7 @@ export default function App() {
                 alignItems: "center",
                 alignSelf: "center",
                 backgroundColor: "black",
-                borderRadius: "32px",
+                borderRadius: 32,
               }}
               onPress={() => setOn(true)}
             >
