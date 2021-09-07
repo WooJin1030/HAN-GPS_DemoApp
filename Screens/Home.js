@@ -1,7 +1,8 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import * as Location from "expo-location";
-import { ImageBackground, Text, TouchableOpacity } from "react-native";
+import { ImageBackground, TouchableOpacity } from "react-native";
 import styled from "styled-components/native";
+import { postUserLocation, getUserLocation } from "../api";
 
 const Container = styled.View`
   width: 100%;
@@ -71,6 +72,9 @@ export default function App() {
       latitude,
       longitude,
     });
+    // console.log(latitude, longitude);
+    postUserLocation(4, latitude, longitude);
+    getUserLocation(4);
   };
 
   useEffect(() => {
