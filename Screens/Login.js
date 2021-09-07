@@ -100,10 +100,10 @@ const LoginScreen = (props) => {
       </View>
       <View style={styles.buttonArea}>
         <TouchableOpacity style={styles.button} onPress={_doLogin.bind(this)}>
-          <Text style={styles.buttonTitle}>Login</Text>
+          <Text style={styles.buttonTitle}>로그인</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.button} onPress={_doJoin.bind(this)}>
-          <Text style={styles.buttonTitle}>Join</Text>
+          <Text style={styles.buttonTitle}>회원 가입</Text>
         </TouchableOpacity>
       </View>
     </View>

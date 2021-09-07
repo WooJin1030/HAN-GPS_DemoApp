@@ -23,6 +23,11 @@ const JoinScreen = (props) => {
     props.navigation.replace("LoginScreen");
   }
 
+  // 뒤로(로그인) 가기
+  function _moveLogin() {
+    props.navigation.replace("LoginScreen");
+  }
+
   // 회원 가입 알림
   function _checkJoin() {
     // getUserInfo(5);
@@ -84,7 +89,13 @@ const JoinScreen = (props) => {
       </View>
       <View style={styles.buttonArea}>
         <TouchableOpacity style={styles.button} onPress={_checkJoin.bind(this)}>
-          <Text style={styles.buttonTitle}>Join</Text>
+          <Text style={styles.buttonTitle}>가입</Text>
+        </TouchableOpacity>
+      </View>
+
+      <View style={styles.buttonArea}>
+        <TouchableOpacity style={styles.button} onPress={_moveLogin.bind(this)}>
+          <Text style={styles.buttonTitle}>로그인으로 돌아가기</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -124,6 +135,7 @@ const styles = StyleSheet.create({
   buttonArea: {
     width: "100%",
     height: hp("5%"),
+    marginBottom: 8,
   },
   button: {
     backgroundColor: "#46c3ad",

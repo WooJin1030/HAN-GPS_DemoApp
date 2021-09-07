@@ -59,7 +59,7 @@ const ProfileScreen = (props) => {
         style={styles.wrapButton}
         onPress={_checkLogout.bind(this)}
       >
-        <Text>🔓 Logout</Text>
+        <Text>🔓 로그아웃</Text>
       </TouchableOpacity>
     </View>
   );
