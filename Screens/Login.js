@@ -51,18 +51,18 @@ const LoginScreen = (props) => {
     if (userInfo.isPossible) {
       props.navigation.replace("TabNavigator");
     } else {
-      alert("Not a member!");
+      alert("회원 정보가 옳지 않습니다!");
     }
   };
 
   // 로그인
   const _doLogin = () => {
     if (!idInput.trim()) {
-      alert("Please Enter Your ID");
+      alert("아이디를 입력해주세요.");
       return;
     }
     if (!pwdInput.trim()) {
-      alert("Please Enter Your password");
+      alert("비밀번호를 입력해주세요.");
       return;
     }
 

@@ -76,11 +76,11 @@ const ProfileScreen = (props) => {
   // 로그아웃 알림
   const _checkLogout = () => {
     Alert.alert(
-      "Alert",
-      "Are you sure?",
+      "주의",
+      "로그아웃 하시겠습니까?",
       [
-        { text: "ok", onPress: _logout.bind(this) },
-        { text: "cancel", onPress: () => null },
+        { text: "확인", onPress: _logout.bind(this) },
+        { text: "취소", onPress: () => null },
       ],
       { cancelable: true }
     );

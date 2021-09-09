@@ -32,29 +32,28 @@ const JoinScreen = (props) => {
   function _checkJoin() {
     // getUserInfo(5);
     if (!idInput.trim()) {
-      alert("Please Enter Your ID");
+      alert("아이디를 입력해주세요.");
       return;
     }
     if (!pwdInput.trim()) {
-      alert("Please Enter Your password");
+      alert("비밀번호를 입력해주세요.");
       return;
     }
     if (!checkPwdInput.trim()) {
-      alert("Please Enter Your password one more time");
+      alert("비밀번호를 한번 더 입력해주세요.");
       return;
     }
 
     if (pwdInput === checkPwdInput) {
       postMember(idInput, pwdInput);
-      alert("Success");
     }
 
     Alert.alert(
-      "Welcome!",
-      "Hello",
+      "환영합니다!",
+      "가입이 완료되었습니다.",
       [
-        { text: "ok", onPress: _doLogin.bind(this) },
-        { text: "cancel", onPress: () => null },
+        { text: "확인", onPress: _doLogin.bind(this) },
+        { text: "취소", onPress: () => null },
       ],
       { cancelable: true }
     );
