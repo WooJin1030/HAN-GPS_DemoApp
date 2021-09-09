@@ -89,8 +89,8 @@ const ProfileScreen = (props) => {
   // 로그아웃
   const _logout = async () => {
     try {
-      console.log(userIdx);
-      console.log(jwt);
+      // console.log(userIdx);
+      // console.log(jwt);
       Logout(userIdx, jwt);
       await AsyncStorage.removeItem(STORAGE_KEY);
     } catch (error) {

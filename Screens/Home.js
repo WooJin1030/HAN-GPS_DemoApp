@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import * as Location from "expo-location";
-import { ImageBackground, TouchableOpacity } from "react-native";
+import axios from "axios";
+import { ImageBackground, TouchableOpacity, AsyncStorage } from "react-native";
 import styled from "styled-components/native";
 import { postUserLocation, getUserLocation } from "../api";
 
@@ -59,6 +60,40 @@ export default function App() {
     longitude: null,
   });
   const [on, setOn] = useState(false);
+  const [jwt, setJwt] = useState("");
+  const [userIdx, setUserIdx] = useState("");
+
+  const BaseURL = "https://www.gpsdemo.shop/";
+  const STORAGE_KEY = "id_token";
+
+  // jwt 값 가져오기
+  const getJwt = async () => {
+    try {
+      let value = await AsyncStorage.getItem(STORAGE_KEY);
+      if (value !== null) {
+        setJwt(value);
+      } else {
+        console.log("no value!");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // jwt토큰으로 유저 idx 불러오기
+  const getUserIdx = async (jwt) => {
+    await axios
+      .get(`${BaseURL}users/userIdx`, {
+        headers: {
+          "X-ACCESS-TOKEN": jwt,
+        },
+      })
+      .then((response) => {
+        const userIdx = response.data.result.userIdx;
+        setUserIdx(userIdx);
+      })
+      .catch((err) => console.log(err));
+  };
 
   // 위치 정보
   const getLocation = async () => {
@@ -73,8 +108,8 @@ export default function App() {
       longitude,
     });
     // console.log(latitude, longitude);
-    postUserLocation(4, latitude, longitude);
-    getUserLocation(4);
+    postUserLocation(userIdx, latitude, longitude);
+    // getUserLocation(userIdx);
   };
 
   useEffect(() => {
@@ -84,6 +119,11 @@ export default function App() {
       return () => clearInterval(timer);
     }
   }, [on]);
+
+  useEffect(() => {
+    getJwt();
+    getUserIdx(jwt);
+  }, [jwt]);
 
   return (
     <Container>
