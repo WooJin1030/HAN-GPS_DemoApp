@@ -1,4 +1,5 @@
-import React, { Component } from "react";
+import React, { Component, useState, useEffect } from "react";
+import axios from "axios";
 import {
   View,
   Text,
@@ -12,15 +13,65 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
-import LoginScreen from "./Login";
 import { _getFromStorage } from "../Storage";
 
 const ProfileScreen = (props) => {
   const STORAGE_KEY = "id_token";
+  const BaseURL = "https://www.gpsdemo.shop/";
+
+  const [jwt, setJwt] = useState("");
+  const [userIdx, setUserIdx] = useState("");
+
+  let headers = {
+    headers: {
+      "X-ACCESS-TOKEN": jwt,
+    },
+  };
+
+  let body = {
+    userIdx,
+  };
 
   // function _navigate() {
   //   props.navigation.navigate("ProfileScreen");
   // }
+
+  // jwt 값 가져오기
+  const getJwt = async () => {
+    try {
+      let value = await AsyncStorage.getItem(STORAGE_KEY);
+      if (value !== null) {
+        setJwt(value);
+      } else {
+        console.log("no value!");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // jwt토큰으로 유저 idx 불러오기
+  const getUserIdx = async (jwt) => {
+    await axios
+      .get(`${BaseURL}users/userIdx`, {
+        headers: {
+          "X-ACCESS-TOKEN": jwt,
+        },
+      })
+      .then((response) => {
+        const userIdx = response.data.result.userIdx;
+        setUserIdx(userIdx);
+      })
+      .catch((err) => console.log(err));
+  };
+
+  // 로그 아웃 api
+  const Logout = async () => {
+    await axios
+      .post(`${BaseURL}users/logout`, body, headers)
+      .then((response) => console.log(response.data))
+      .catch((err) => console.log(err));
+  };
 
   // 로그아웃 알림
   const _checkLogout = () => {
@@ -38,8 +89,10 @@ const ProfileScreen = (props) => {
   // 로그아웃
   const _logout = async () => {
     try {
+      console.log(userIdx);
+      console.log(jwt);
+      Logout(userIdx, jwt);
       await AsyncStorage.removeItem(STORAGE_KEY);
-      _getFromStorage();
     } catch (error) {
       console.log("AsyncStorage error: " + error.message);
     }
@@ -52,6 +105,11 @@ const ProfileScreen = (props) => {
 
     props.navigation.dispatch(resetAction);
   };
+
+  useEffect(() => {
+    getJwt();
+    getUserIdx(jwt);
+  }, [jwt]);
 
   return (
     <View style={styles.container}>

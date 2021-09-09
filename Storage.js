@@ -1,5 +1,6 @@
 import React from "react";
 import { AsyncStorage } from "react-native";
+import { getUserIdx, Logout } from "./api";
 
 const STORAGE_KEY = "id_token";
 
@@ -15,7 +16,7 @@ export const _onValueChange = async (item, selectedValue) => {
 // AsyncStorage에서 데이터 가져오기
 export const _getFromStorage = async () => {
   try {
-    const value = await AsyncStorage.getItem(STORAGE_KEY);
+    let value = await AsyncStorage.getItem(STORAGE_KEY);
     if (value !== null) {
       console.log(value);
     } else {

@@ -25,16 +25,6 @@ export const getUserInfo = async (idx) => {
     .catch((err) => console.log(err));
 };
 
-// 로그 아웃 api
-export const Logout = async (idx) => {
-  await axios
-    .post(`${BaseURL}logout`, {
-      userIdx: idx,
-    })
-    .then((response) => console.log(response.data))
-    .catch((err) => console.log(err));
-};
-
 // 위치 저장 api
 export const postUserLocation = async (idx, lat, lon) => {
   await axios
@@ -53,6 +43,18 @@ export const getUserLocation = async (idx) => {
     .get(`${BaseURL}locations`, {
       params: {
         userIdx: idx,
+      },
+    })
+    .then((response) => console.log(response.data))
+    .catch((err) => console.log(err));
+};
+
+// jwt 값으로 유저 인덱스 식별
+export const getUserIdx = async (jwt) => {
+  await axios
+    .get(`${BaseURL}users/userIdx`, {
+      headers: {
+        "X-ACCESS-TOKEN": jwt,
       },
     })
     .then((response) => console.log(response.data))

@@ -18,7 +18,7 @@ const JoinScreen = (props) => {
   const [pwdInput, setPwdInput] = useState("");
   const [checkPwdInput, setCheckPwdInput] = useState("");
 
-  // 회원 가입 성공시 자동 로그인
+  // 회원 가입 성공시 로그인 다시 로그인 창으로 이동
   function _doLogin() {
     props.navigation.replace("LoginScreen");
   }
