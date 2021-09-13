@@ -3,7 +3,7 @@ import * as Location from "expo-location";
 import axios from "axios";
 import { ImageBackground, TouchableOpacity, AsyncStorage } from "react-native";
 import styled from "styled-components/native";
-import { postUserLocation, getUserLocation } from "../api";
+import { postUserLocation } from "../api";
 
 const Container = styled.View`
   width: 100%;
@@ -63,6 +63,8 @@ export default function App() {
   const [jwt, setJwt] = useState("");
   const [userIdx, setUserIdx] = useState("");
 
+  const [restrictStatus, setRestrictStatus] = useState("Y");
+
   const BaseURL = "https://www.gpsdemo.shop/";
   const STORAGE_KEY = "id_token";
 
@@ -89,8 +91,24 @@ export default function App() {
         },
       })
       .then((response) => {
+        console.log(response.data.result);
         const userIdx = response.data.result.userIdx;
         setUserIdx(userIdx);
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const getRestrict = async (userIdx) => {
+    await axios
+      .get(`${BaseURL}users/info`, {
+        params: {
+          userIdx,
+        },
+      })
+      .then((response) => {
+        console.log(response.data.result);
+        const rStatus = response.data.result.restrictStatus;
+        setRestrictStatus(rStatus);
       })
       .catch((err) => console.log(err));
   };
@@ -123,6 +141,7 @@ export default function App() {
   useEffect(() => {
     getJwt();
     getUserIdx(jwt);
+    getRestrict(userIdx);
   }, [jwt]);
 
   return (
@@ -145,7 +164,11 @@ export default function App() {
               <PosText>경도: {location.longitude}</PosText>
             </PosView>
             <AlertContainer>
-              <AlertText>범위 안입니다.</AlertText>
+              {restrictStatus === "Y" ? (
+                <AlertText>범위 안입니다.</AlertText>
+              ) : (
+                <AlertText style={{ color: "red" }}>범위 밖입니다.</AlertText>
+              )}
             </AlertContainer>
             {location.latitude !== null ? console.log(location) : null}
             <TouchableOpacity
