@@ -98,6 +98,7 @@ export default function App() {
       .catch((err) => console.log(err));
   };
 
+  // 제한 범위 내에 있는지 밖에 있는지 확인
   const getRestrict = async (userIdx) => {
     await axios
       .get(`${BaseURL}users/info`, {

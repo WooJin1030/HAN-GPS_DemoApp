@@ -36,17 +36,17 @@ const JoinScreen = (props) => {
   };
 
   // 회원 가입 성공시 로그인 다시 로그인 창으로 이동
-  function _doLogin() {
+  const _doLogin = () => {
     props.navigation.replace("LoginScreen");
-  }
+  };
 
   // 뒤로(로그인) 가기
-  function _moveLogin() {
+  const _moveLogin = () => {
     props.navigation.replace("LoginScreen");
-  }
+  };
 
   // 회원 가입 알림
-  function _checkJoin() {
+  const _checkJoin = () => {
     getMemebers(idInput);
 
     if (!idInput.trim()) {
@@ -83,7 +83,7 @@ const JoinScreen = (props) => {
       ],
       { cancelable: true }
     );
-  }
+  };
 
   useEffect(() => {
     if (idInput) {

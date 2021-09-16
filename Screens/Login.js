@@ -72,9 +72,9 @@ const LoginScreen = (props) => {
   };
 
   // 회원가입 화면으로 전환
-  function _doJoin() {
+  const _doJoin = () => {
     props.navigation.replace("JoinScreen");
-  }
+  };
 
   useEffect(() => {
     if (idInput && pwdInput) Login(idInput, pwdInput);
