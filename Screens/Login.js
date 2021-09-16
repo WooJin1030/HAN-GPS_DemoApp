@@ -83,7 +83,7 @@ const LoginScreen = (props) => {
   return (
     <View style={styles.container}>
       <View style={styles.titleArea}>
-        <Text style={styles.title}>GPS APP</Text>
+        <Text style={styles.title}>GPS Demo</Text>
       </View>
       <View style={styles.formArea}>
         <TextInput
@@ -145,9 +145,11 @@ const styles = StyleSheet.create({
     height: hp("5%"),
   },
   button: {
-    backgroundColor: "#46c3ad",
-    width: "100%",
+    backgroundColor: "#ffab00",
+    borderRadius: 20,
+    width: "80%",
     height: "100%",
+    alignSelf: "center",
     justifyContent: "center",
     alignItems: "center",
     marginBottom: 7,
