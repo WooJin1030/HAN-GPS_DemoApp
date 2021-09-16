@@ -133,7 +133,7 @@ export default function App() {
   useEffect(() => {
     if (on) {
       getLocation();
-      const timer = setInterval(() => getLocation(), 100000);
+      const timer = setInterval(() => getLocation(), 10000);
       return () => clearInterval(timer);
     }
   }, [on]);

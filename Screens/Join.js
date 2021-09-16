@@ -1,4 +1,4 @@
-import React, { Component, useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -11,12 +11,29 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
-import { postMember, getUserInfo } from "../api";
+import axios from "axios";
+import { postMember } from "../api";
 
 const JoinScreen = (props) => {
   const [idInput, setIdInput] = useState("");
   const [pwdInput, setPwdInput] = useState("");
   const [checkPwdInput, setCheckPwdInput] = useState("");
+  const [userInfo, setUserInfo] = useState({
+    isPossible: true,
+  });
+  const BaseURL = "https://www.gpsdemo.shop/";
+
+  const getMemebers = async (id) => {
+    await axios
+      .get(`${BaseURL}users/id`)
+      .then((response) => {
+        const allUsers = response.data.result;
+        allUsers.forEach((user) => {
+          if (user.id === id) setUserInfo({ isPossible: false });
+        });
+      })
+      .catch((err) => console.log(err));
+  };
 
   // 회원 가입 성공시 로그인 다시 로그인 창으로 이동
   function _doLogin() {
@@ -30,7 +47,8 @@ const JoinScreen = (props) => {
 
   // 회원 가입 알림
   function _checkJoin() {
-    // getUserInfo(5);
+    getMemebers(idInput);
+
     if (!idInput.trim()) {
       alert("아이디를 입력해주세요.");
       return;
@@ -45,7 +63,15 @@ const JoinScreen = (props) => {
     }
 
     if (pwdInput === checkPwdInput) {
-      postMember(idInput, pwdInput);
+      if (!userInfo.isPossible) {
+        alert("존재하는 ID입니다.");
+        return;
+      } else {
+        postMember(idInput, pwdInput);
+      }
+    } else {
+      alert("비밀번호를 다시 확인해 주세요!");
+      return;
     }
 
     Alert.alert(
@@ -58,6 +84,13 @@ const JoinScreen = (props) => {
       { cancelable: true }
     );
   }
+
+  useEffect(() => {
+    if (idInput) {
+      setUserInfo({ isPossible: true });
+      getMemebers(idInput);
+    }
+  }, [idInput, pwdInput, checkPwdInput]);
 
   return (
     <View style={styles.container}>
