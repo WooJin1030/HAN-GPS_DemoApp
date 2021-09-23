@@ -91,7 +91,7 @@ export default function App() {
         },
       })
       .then((response) => {
-        console.log(response.data.result);
+        // console.log(response.data.result);
         const userIdx = response.data.result.userIdx;
         setUserIdx(userIdx);
       })
@@ -126,15 +126,15 @@ export default function App() {
       latitude,
       longitude,
     });
-    // console.log(latitude, longitude);
     postUserLocation(userIdx, latitude, longitude);
     // getUserLocation(userIdx);
+    // getRestrict()
   };
 
   useEffect(() => {
     if (on) {
       getLocation();
-      const timer = setInterval(() => getLocation(), 10000);
+      const timer = setInterval(() => getLocation(), 100000);
       return () => clearInterval(timer);
     }
   }, [on]);
@@ -142,7 +142,6 @@ export default function App() {
   useEffect(() => {
     getJwt();
     getUserIdx(jwt);
-    getRestrict(userIdx);
   }, [jwt]);
 
   return (
