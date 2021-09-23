@@ -26,6 +26,7 @@ const BtnText = styled.Text`
 
 const OffText = styled.Text`
   align-self: center;
+  text-align: center;
   font-size: 24px;
 `;
 
