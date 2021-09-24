@@ -63,7 +63,6 @@ export default function App() {
   const [on, setOn] = useState(false);
   const [jwt, setJwt] = useState("");
   const [userIdx, setUserIdx] = useState("");
-
   const [restrictStatus, setRestrictStatus] = useState("Y");
 
   const BaseURL = "https://www.gpsdemo.shop/";
@@ -127,9 +126,9 @@ export default function App() {
       latitude,
       longitude,
     });
+    getRestrict(userIdx);
     postUserLocation(userIdx, latitude, longitude);
     // getUserLocation(userIdx);
-    // getRestrict()
   };
 
   useEffect(() => {
