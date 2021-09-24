@@ -107,7 +107,7 @@ export default function App() {
         },
       })
       .then((response) => {
-        console.log(response.data.result);
+        // console.log(response.data.result);
         const rStatus = response.data.result.restrictStatus;
         setRestrictStatus(rStatus);
       })
