@@ -129,7 +129,6 @@ export default function App() {
       longitude,
     });
     postUserLocation(userIdx, latitude, longitude);
-    // getUserLocation(userIdx);
   };
 
   useEffect(() => {
