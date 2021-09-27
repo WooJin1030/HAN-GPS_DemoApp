@@ -122,11 +122,12 @@ export default function App() {
       coords: { latitude, longitude },
     } = await Location.getCurrentPositionAsync();
 
+    await Location.requestBackgroundPermissionsAsync();
+
     setLocation({
       latitude,
       longitude,
     });
-    getRestrict(userIdx);
     postUserLocation(userIdx, latitude, longitude);
     // getUserLocation(userIdx);
   };
@@ -134,7 +135,12 @@ export default function App() {
   useEffect(() => {
     if (on) {
       getLocation();
-      const timer = setInterval(() => getLocation(), 100000);
+      getRestrict(userIdx);
+
+      const timer = setInterval(() => {
+        getLocation();
+        getRestrict(userIdx);
+      }, 100000);
       return () => clearInterval(timer);
     }
   }, [on]);
