@@ -107,8 +107,7 @@ export default function App() {
         },
       })
       .then((response) => {
-        // console.log(response.data.result);
-        const rStatus = response.data.result.restrictStatus;
+        let rStatus = response.data.result.restrictStatus;
         setRestrictStatus(rStatus);
       })
       .catch((err) => console.log(err));
@@ -122,7 +121,7 @@ export default function App() {
       coords: { latitude, longitude },
     } = await Location.getCurrentPositionAsync();
 
-    await Location.requestBackgroundPermissionsAsync();
+    // await Location.requestBackgroundPermissionsAsync();
 
     setLocation({
       latitude,
@@ -130,6 +129,11 @@ export default function App() {
     });
     postUserLocation(userIdx, latitude, longitude);
   };
+
+  useEffect(() => {
+    getJwt();
+    getUserIdx(jwt);
+  }, [jwt]);
 
   useEffect(() => {
     if (on) {
@@ -143,11 +147,6 @@ export default function App() {
       return () => clearInterval(timer);
     }
   }, [on]);
-
-  useEffect(() => {
-    getJwt();
-    getUserIdx(jwt);
-  }, [jwt]);
 
   return (
     <Container>
@@ -175,7 +174,7 @@ export default function App() {
                 <AlertText style={{ color: "red" }}>범위 밖입니다.</AlertText>
               )}
             </AlertContainer>
-            {location.latitude !== null ? console.log(location) : null}
+            {/* {location.latitude !== null ? console.log(location) : null} */}
             <TouchableOpacity
               style={{
                 width: "80%",
