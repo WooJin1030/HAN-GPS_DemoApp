@@ -4,6 +4,10 @@
 
 ### [leaflet 지도 웹](https://github.com/WooJin1030/HAN-GPS_DemoLeaflet)
 
+## 기술
+
+- React Native
+
 ## 앱의 기능
 
 - 회원가입
