@@ -1,6 +1,6 @@
 # GPS Demo App
 
-### 사용자의 위치 정보를 서버로 전송하여 웹 지도로 표시하는 안드로이드 어플
+### 사용자의 위치 정보를 서버로 전송하여 웹 지도로 표시 가능하게 하는 안드로이드 어플
 
 ### [leaflet 지도 웹](https://github.com/WooJin1030/HAN-GPS_DemoLeaflet)
 
